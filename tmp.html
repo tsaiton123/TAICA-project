@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Local Shop Explorer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      font-weight: 500;
+    }
+
+    form {
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      padding: 0.6rem 1rem;
+      width: 280px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      outline: none;
+      background: white;
+    }
+
+    button {
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+
+    iframe {
+      margin: 2rem auto;
+      width: 90%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 0;
+    }
+
+    @media (max-width: 600px) {
+      input[type="text"] {
+        width: 90%;
+      }
+
+      iframe {
+        height: 400px;
+      }
+    }
+
+    /* Flashlight overlay */
+    #flashlight-mask {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+  </style>
+
+  <script>
+    window.onload = function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+    
+          // Redirect only if not already showing a map
+          if (!window.location.search.includes("lat=")) {
+            const url = new URL(window.location.href);
+            url.searchParams.set("lat", lat);
+            url.searchParams.set("lng", lng);
+            window.location.href = url;
+          }
+    
+          // Also update hidden fields for form usage
+          document.getElementById("lat").value = lat;
+          document.getElementById("lng").value = lng;
+        });
+      }
+    };
+  </script>
+</head>
+
+<body>
+  <h2>🔍 Explore Nearby Shops</h2>
+  <form method="post">
+    <input type="text" name="keyword" placeholder="Search (e.g., burger, ramen)" required />
+    <input type="hidden" name="lat" id="lat" />
+    <input type="hidden" name="lng" id="lng" />
+    <button type="submit">Find Places</button>
+  </form>
+
+  {% if keyword %}
+    <h3>Showing results for: <em>{{ keyword }}</em></h3>
+
+    <!-- ✅ Flashlight SVG Mask (only shows when keyword is present) -->
+    <div id="flashlight-mask">
+      <svg width="100%" height="100%">
+        <defs>
+          <mask id="flashlight">
+            <rect width="100%" height="100%" fill="white"/>
+            <circle id="mask-circle" cx="50%" cy="50%" r="50" fill="black">
+              <animate
+                attributeName="r"
+                from="50"
+                to="1600"
+                dur="1.5s"
+                fill="freeze"
+                begin="0s"
+                repeatCount="1"/>
+            </circle>
+          </mask>
+        </defs>
+        <rect width="100%" height="100%" fill="black" mask="url(#flashlight)"/>
+      </svg>
+    </div>
+  {% endif %}
+
+  <iframe src="{{ url_for('static', filename='map_with_opening_dates.html') }}"></iframe>
+</body>
+</html>

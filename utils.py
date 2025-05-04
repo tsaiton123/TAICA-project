@@ -15,7 +15,7 @@ model_sentiment = AutoModelForSequenceClassification.from_pretrained(model_senti
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
 def fetch_places(keyword, api_key, location):
-    radius = 10000
+    radius = 1000
     url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={keyword}&location={location}&radius={radius}&key={api_key}"
     res = requests.get(url)
     return res.json().get('results', [])
@@ -101,7 +101,7 @@ def get_earliest_review_date(place_id, api_key):
 
 def generate_map(places, api_key, keyword, location, client):
     lat, lng = map(float, location.split(','))
-    m = folium.Map(location=[lat, lng], zoom_start=13)
+    m = folium.Map(location=[lat, lng], zoom_start=15)
     ...
 
     for place in places:
@@ -117,10 +117,19 @@ def generate_map(places, api_key, keyword, location, client):
         avg_score, review_count = average_sentiment_score(sentiments)
         # summary = summarize_reviews(reviews)
 
-        # popup_html = f"<b>{name}</b><br><b>Avg Sentiment:</b> {avg_score}<br><b>Summary:</b> {summary} (from {review_count} reviews)"
+        keywords_html = "<ul style='padding-left:18px; margin:5px 0;'>" + "".join(
+            f"<li>{kw}</li>" for kw in keywords[:10]
+        ) + "</ul>"
+
+        popup_html = f"""
+        <b>{name}</b><br>
+        <b>Sentiment Score:</b> {avg_score}<br>
+        <b>Keywords:</b> {keywords_html}
+        """
 
 
-        popup_html = f"<b>{name}</b><br><b>Sentiment Score:</b> {avg_score} (from {review_count} reviews)"
+
+
         folium.Marker(
             location=[loc['lat'], loc['lng']],
             popup=popup_html
