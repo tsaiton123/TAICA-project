@@ -8,3 +8,4 @@ shapely
 openai
 gunicorn
 dotenv
+flask_sqlalchemy
