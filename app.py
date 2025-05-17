@@ -72,6 +72,7 @@ def create_app():
             generate_map(places, google_api_key, keyword, location, client)
             return render_template("index.html", keyword=keyword)
 
+
         # landing map with flashlight
         lat = request.args.get("lat")
         lng = request.args.get("lng")
