@@ -6,3 +6,4 @@ transformers
 geopandas
 shapely
 openai
+gunicorn
