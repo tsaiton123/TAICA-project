@@ -1,11 +1,13 @@
 import requests
 import folium
 from folium.features import CustomIcon
+from folium import Html, Popup
 from datetime import datetime
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline, AutoModelForSeq2SeqLM
 import torch
 import os
 from openai import OpenAI
+from branca.element import Figure
 
 model_sentiment_name = "tabularisai/multilingual-sentiment-analysis"
 tokenizer_sentiment = AutoTokenizer.from_pretrained(model_sentiment_name)
@@ -160,14 +162,15 @@ def generate_map(places, api_key, keyword, location, client):
         <b>Keywords:</b> {keywords_html}
         """
 
+        html = Html(popup_html, script=True)
 
+        popup = Popup(html, max_width=300)
 
 
         folium.Marker(
             location=[loc['lat'], loc['lng']],
-            popup=popup_html
+            popup=popup
         ).add_to(m)
 
     os.makedirs("static", exist_ok=True)
     m.save("static/map_with_opening_dates.html")
-
