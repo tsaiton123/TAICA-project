@@ -1,3 +1,8 @@
 Flask
 requests
 folium
+torch
+transformers
+geopandas
+shapely
+openai
