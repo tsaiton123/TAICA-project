@@ -12,8 +12,7 @@ tokenizer_sentiment = AutoTokenizer.from_pretrained(model_sentiment_name)
 model_sentiment = AutoModelForSequenceClassification.from_pretrained(model_sentiment_name)
 
 
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
-
+# 取得地點
 def fetch_places(keyword, api_key, location):
     radius = 1000
     url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={keyword}&location={location}&radius={radius}&key={api_key}"
@@ -21,19 +20,7 @@ def fetch_places(keyword, api_key, location):
     return res.json().get('results', [])
 
 
-def summarize_reviews(reviews):
-    if not reviews:
-        return "No reviews available."
-
-    joined = " ".join(reviews)
-    if len(joined) > 1024:
-        joined = joined[:1024]  # truncate for performance
-
-    summary = summarizer(joined, max_length=100, min_length=30, do_sample=False)
-    return summary[0]['summary_text']
-
-
-
+# 取得評論
 def fetch_reviews(place_id, api_key, language='zh-TW'):
     # url = f"https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&fields=reviews&key={api_key}"
     url = f"https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&fields=reviews&language={language}&key={api_key}"
@@ -43,6 +30,7 @@ def fetch_reviews(place_id, api_key, language='zh-TW'):
     except:
         return []
 
+# 預測情感
 def predict_sentiment(texts):
     if not texts:
         return []
@@ -55,6 +43,7 @@ def predict_sentiment(texts):
     sentiment_map = {0: "Very Negative", 1: "Negative", 2: "Neutral", 3: "Positive", 4: "Very Positive"}
     return [sentiment_map[p] for p in torch.argmax(probabilities, dim=-1).tolist()]
 
+# 計算平均情感分數
 def average_sentiment_score(sentiments):
     score_map = {"Very Negative": 0, "Negative": 1, "Neutral": 2, "Positive": 3, "Very Positive": 4}
     if not sentiments:
@@ -63,7 +52,7 @@ def average_sentiment_score(sentiments):
     return f"{sum(scores)/len(scores):.2f}", len(scores)
 
 
-
+# 取得評論的關鍵意見句
 def extract_keywords(reviews, client, model="gpt-3.5-turbo"):
 
     # Join all reviews as one input
@@ -76,6 +65,7 @@ def extract_keywords(reviews, client, model="gpt-3.5-turbo"):
         請輸出一組關鍵意見句清單（不需要說明）：
         """
 
+    # 呼叫 OpenAI API
     response = client.chat.completions.create(model=model,
     messages=[
         {"role": "user", "content": prompt}
@@ -89,15 +79,15 @@ def extract_keywords(reviews, client, model="gpt-3.5-turbo"):
     return keywords
 
 
-def get_earliest_review_date(place_id, api_key):
-    url = f"https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&fields=reviews&key={api_key}"
-    res = requests.get(url).json()
-    try:
-        timestamps = [review['time'] for review in res['result']['reviews']]
-        earliest = min(timestamps)
-        return datetime.utcfromtimestamp(earliest).strftime('%Y-%m-%d')
-    except:
-        return "Unknown"
+# def get_earliest_review_date(place_id, api_key):
+#     url = f"https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&fields=reviews&key={api_key}"
+#     res = requests.get(url).json()
+#     try:
+#         timestamps = [review['time'] for review in res['result']['reviews']]
+#         earliest = min(timestamps)
+#         return datetime.utcfromtimestamp(earliest).strftime('%Y-%m-%d')
+#     except:
+#         return "Unknown"
 
 def generate_map(places, api_key, keyword, location, client):
     lat, lng = map(float, location.split(','))
