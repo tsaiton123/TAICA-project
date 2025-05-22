@@ -3,14 +3,6 @@
 <head>
     
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    
-        <script>
-            L_NO_TOUCH = false;
-            L_DISABLE_3D = false;
-        </script>
-    
-    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -25,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_a4297a14994cd9abfe090cb4fb188fe3 {
+                #map_dfc81215a6e0d6aeb8c77b95f2e2c2de {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -34,21 +26,44 @@
                 }
                 .leaflet-container { font-size: 1rem; }
             </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
         
 </head>
 <body>
     
     
-            <div class="folium-map" id="map_a4297a14994cd9abfe090cb4fb188fe3" ></div>
+            <div class="folium-map" id="map_dfc81215a6e0d6aeb8c77b95f2e2c2de" ></div>
         
 </body>
 <script>
     
     
-            var map_a4297a14994cd9abfe090cb4fb188fe3 = L.map(
-                "map_a4297a14994cd9abfe090cb4fb188fe3",
+            var map_dfc81215a6e0d6aeb8c77b95f2e2c2de = L.map(
+                "map_dfc81215a6e0d6aeb8c77b95f2e2c2de",
                 {
-                    center: [25.044449255222336, 121.52624211667705],
+                    center: [25.1101184, 121.5266816],
                     crs: L.CRS.EPSG3857,
                     ...{
   "zoom": 15,
@@ -63,7 +78,7 @@
 
         
     
-            var tile_layer_702aded67d199d73c53524cfeefada74 = L.tileLayer(
+            var tile_layer_50041d8156e9acbc932d6e0c3e6dc29a = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -80,484 +95,484 @@
             );
         
     
-            tile_layer_702aded67d199d73c53524cfeefada74.addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            tile_layer_50041d8156e9acbc932d6e0c3e6dc29a.addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-            var marker_142700eaba6cae3433ba8489920c18c3 = L.marker(
-                [25.0527465, 121.5206835],
+            var marker_d0d3db1d0d80cade895b3251957ad888 = L.marker(
+                [25.120051, 121.5311922],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_193a6dd5a566baa3b7211090b990fa61 = L.popup({
-  "maxWidth": "100%",
+        var popup_54306604c1a93e8c5df23109e858602a = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_9b7884e305b006394c8b71facb1e5efd = $(`<div id="html_9b7884e305b006394c8b71facb1e5efd" style="width: 100.0%; height: 100.0%;">         <b>GB Brewery Restaurant –Taipei NanXi Store</b><br>         <b>Sentiment Score:</b> 2.00<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>沙拉超推舊金山菠菜沙拉</li><li>BBQ醬烤豬排 意外好吃</li><li>辣味檸檬鮮蝦麵 也是出人意表</li><li>佳釀果香啤酒 推推推～</li><li>墨西哥披薩🍕個人不喜歡這種口味</li><li>炸花枝 及 拼盤就是炸物就ok</li></ul>         </div>`)[0];
-                popup_193a6dd5a566baa3b7211090b990fa61.setContent(html_9b7884e305b006394c8b71facb1e5efd);
+                var html_8051eebcbe3b7ce837fda876208b2c9a = $(`<div id="html_8051eebcbe3b7ce837fda876208b2c9a" style="width: 100.0%; height: 100.0%;">         <b>Burger O'clock</b><br>         <b>Sentiment Score:</b> 2.6<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>漢堡店生意熱絡</li><li>牛肉漢堡佐特製醬</li><li>50公分巨腸口味十足</li><li>水牛城機雞翅調味不錯</li><li>漢堡價位不錯</li><li>口味多樣化</li></ul>         </div>`)[0];
+                popup_54306604c1a93e8c5df23109e858602a.setContent(html_8051eebcbe3b7ce837fda876208b2c9a);
             
         
 
-        marker_142700eaba6cae3433ba8489920c18c3.bindPopup(popup_193a6dd5a566baa3b7211090b990fa61)
+        marker_d0d3db1d0d80cade895b3251957ad888.bindPopup(popup_54306604c1a93e8c5df23109e858602a)
         ;
 
         
     
     
-            var marker_d84e0ed4f80d5823024d04422165bce8 = L.marker(
-                [25.0503058, 121.5166241],
+            var marker_1e1cd83f9c6774340069e02b34d07ec6 = L.marker(
+                [25.1140823, 121.5270153],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_07f6e01a390e82720668d2897f7f4821 = L.popup({
-  "maxWidth": "100%",
+        var popup_f6542c9c3f69ccddb0627bb1f12e8bce = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_045246b38c54790652011fe837991de4 = $(`<div id="html_045246b38c54790652011fe837991de4" style="width: 100.0%; height: 100.0%;">         <b>Nowhere Taipei Mexican Bistro</b><br>         <b>Sentiment Score:</b> 2.80<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>店員服務親切有耐心</li><li>餐點好吃，調酒濃度夠</li><li>牛腸taco好吃到不行</li><li>餐點種類太少</li><li>墨西哥捲餅口味推薦</li><li>餅皮部分建議升級玉米餅皮</li><li>手撕豬捲餅有咬勁</li><li>玉米脆片量多，酪梨醬少</li><li>炸魚薯條外酥內軟，配醬不錯</li><li>調酒種類多，等候時間長</li></ul>         </div>`)[0];
-                popup_07f6e01a390e82720668d2897f7f4821.setContent(html_045246b38c54790652011fe837991de4);
+                var html_a74603a4f3ff045456a5f3ce822c517f = $(`<div id="html_a74603a4f3ff045456a5f3ce822c517f" style="width: 100.0%; height: 100.0%;">         <b>Patio Bar & Grill</b><br>         <b>Sentiment Score:</b> 2.4<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>披薩好吃</li><li>雞柳條美味</li><li>薯條cp值高</li><li>晚上七點開始營業</li><li>氣氛不錯</li><li>餐點水準高</li></ul>         </div>`)[0];
+                popup_f6542c9c3f69ccddb0627bb1f12e8bce.setContent(html_a74603a4f3ff045456a5f3ce822c517f);
             
         
 
-        marker_d84e0ed4f80d5823024d04422165bce8.bindPopup(popup_07f6e01a390e82720668d2897f7f4821)
+        marker_1e1cd83f9c6774340069e02b34d07ec6.bindPopup(popup_f6542c9c3f69ccddb0627bb1f12e8bce)
         ;
 
         
     
     
-            var marker_f620409b67a923fa3313778867eab3bd = L.marker(
-                [25.049308, 121.5171935],
+            var marker_474c7eb40aa3aa953792f8a70abda1a7 = L.marker(
+                [25.117749, 121.5324692],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_763dda775d85171fad45d117cdf0186e = L.popup({
-  "maxWidth": "100%",
+        var popup_ee7516919f8e75cb6efac0046baf58cf = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_12ba97fb6408dba2d8e389c86aa031a4 = $(`<div id="html_12ba97fb6408dba2d8e389c86aa031a4" style="width: 100.0%; height: 100.0%;">         <b>Le Ble d'Or</b><br>         <b>Sentiment Score:</b> 2.80<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>環境嘈雜不適合聊天</li><li>餐點不錯吃素食友善</li><li>服務品質出色處理問題方式好</li></ul>         </div>`)[0];
-                popup_763dda775d85171fad45d117cdf0186e.setContent(html_12ba97fb6408dba2d8e389c86aa031a4);
+                var html_0b26afd03e221d0088ac364fae71382b = $(`<div id="html_0b26afd03e221d0088ac364fae71382b" style="width: 100.0%; height: 100.0%;">         <b>Louis' Burgers</b><br>         <b>Sentiment Score:</b> 2.6<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>座位舒適</li><li>漢堡美味</li><li>油煙味不重</li><li>洋蔥圈油膩</li><li>薯條要趁熱</li><li>牛肉壓扁好吃</li></ul>         </div>`)[0];
+                popup_ee7516919f8e75cb6efac0046baf58cf.setContent(html_0b26afd03e221d0088ac364fae71382b);
             
         
 
-        marker_f620409b67a923fa3313778867eab3bd.bindPopup(popup_763dda775d85171fad45d117cdf0186e)
+        marker_474c7eb40aa3aa953792f8a70abda1a7.bindPopup(popup_ee7516919f8e75cb6efac0046baf58cf)
         ;
 
         
     
     
-            var marker_50b7d23e8b722f153ae161399a3b0d0d = L.marker(
-                [25.0492576, 121.5171959],
+            var marker_a45ead62aba2a057fdcd48b585a50221 = L.marker(
+                [25.1074226, 121.5284554],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_17e12b954926f9e183fce5b44d8494ff = L.popup({
-  "maxWidth": "100%",
+        var popup_bbf32b1cb2115351e90778b9db32c15f = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_ad87a7d4cb003205efa2ff91ee12925d = $(`<div id="html_ad87a7d4cb003205efa2ff91ee12925d" style="width: 100.0%; height: 100.0%;">         <b>RollFive 墨式捲餅【京站店】</b><br>         <b>Sentiment Score:</b> 1.20<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>餅皮上面的料有跟沒有一樣</li><li>份量少沒關係，一堆不成形的碎片是在清廚餘嗎？</li><li>這次真的是有被氣到，大家小心，避雷❌避雷❌避雷❌</li><li>他們的皮太薄、醬偏酸、份量不大，但還不錯吃</li><li>煙燻鮭魚沙拉 $195 份量精緻，口味普通，CP值不高</li><li>價格稍稍高一些以食材內容物來說的話，整體是好吃的</li></ul>         </div>`)[0];
-                popup_17e12b954926f9e183fce5b44d8494ff.setContent(html_ad87a7d4cb003205efa2ff91ee12925d);
+                var html_e5cd0e7eb1cec1f54d230b1dbb7bbd97 = $(`<div id="html_e5cd0e7eb1cec1f54d230b1dbb7bbd97" style="width: 100.0%; height: 100.0%;">         <b>LaLey Burger 德東店</b><br>         <b>Sentiment Score:</b> 1.6<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>牛肉三明治好吃</li><li>咖啡不馬虎</li><li>服務態度變差</li><li>鐵觀音奶茶裝少</li><li>烤爐雙牛堡好吃</li><li>裝潢新風格</li></ul>         </div>`)[0];
+                popup_bbf32b1cb2115351e90778b9db32c15f.setContent(html_e5cd0e7eb1cec1f54d230b1dbb7bbd97);
             
         
 
-        marker_50b7d23e8b722f153ae161399a3b0d0d.bindPopup(popup_17e12b954926f9e183fce5b44d8494ff)
+        marker_a45ead62aba2a057fdcd48b585a50221.bindPopup(popup_bbf32b1cb2115351e90778b9db32c15f)
         ;
 
         
     
     
-            var marker_9db389a9421314ccedc36acd86972d63 = L.marker(
-                [25.047749, 121.517044],
+            var marker_941ce7ad66e43084fa26d516ae939b56 = L.marker(
+                [25.1136103, 121.5299977],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_84ac4050f0f0f0e9987a60937f8440c4 = L.popup({
-  "maxWidth": "100%",
+        var popup_8eeaa78a0cfd43112374f68a79d25825 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_aa50d113190262df27d1bf2cab1e29e3 = $(`<div id="html_aa50d113190262df27d1bf2cab1e29e3" style="width: 100.0%; height: 100.0%;">         <b>Second Floor Cafe Breeze Taipei Station</b><br>         <b>Sentiment Score:</b> 3.20<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>餐點有水準，擺盤美觀</li><li>服務優，推薦</li><li>份量多，打包方便</li><li>炸物酥脆熱騰騰</li><li>麵包香酥，歐式味道</li><li>招牌漢堡香汁滿多</li><li>早午餐丹麥吐司好吃</li><li>甜點推薦，超好吃</li><li>飲料喝到飽，划算好喝</li><li>布朗尼酥，冰淇淋剛好</li></ul>         </div>`)[0];
-                popup_84ac4050f0f0f0e9987a60937f8440c4.setContent(html_aa50d113190262df27d1bf2cab1e29e3);
+                var html_67a67a35eb35fb8b665643cc1df24beb = $(`<div id="html_67a67a35eb35fb8b665643cc1df24beb" style="width: 100.0%; height: 100.0%;">         <b>Runnyegg Burger</b><br>         <b>Sentiment Score:</b> 3.0<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>漢堡味道不錯</li><li>薯條細款好吃</li><li>份量偏小</li><li>價格稍貴</li><li>環境明亮乾淨</li><li>上餐速度快</li></ul>         </div>`)[0];
+                popup_8eeaa78a0cfd43112374f68a79d25825.setContent(html_67a67a35eb35fb8b665643cc1df24beb);
             
         
 
-        marker_9db389a9421314ccedc36acd86972d63.bindPopup(popup_84ac4050f0f0f0e9987a60937f8440c4)
+        marker_941ce7ad66e43084fa26d516ae939b56.bindPopup(popup_8eeaa78a0cfd43112374f68a79d25825)
         ;
 
         
     
     
-            var marker_bb7bd203f0640a5be4d103f0343b0584 = L.marker(
-                [25.0491764, 121.5360678],
+            var marker_d07af11f63110e30931ad0be8709989d = L.marker(
+                [25.1125817, 121.5288154],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_31f00735619f421084b8744e219f668a = L.popup({
-  "maxWidth": "100%",
+        var popup_c89b9d3552b1b6b4fd22033d118cd760 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_3fa707b86d994b2c2a45047a33a3bd51 = $(`<div id="html_3fa707b86d994b2c2a45047a33a3bd51" style="width: 100.0%; height: 100.0%;">         <b>MEXIGO 墨西哥健康餐盒/低卡餐點</b><br>         <b>Sentiment Score:</b> 2.20<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>瘋狂雞餐盒很好吃、清爽</li><li>墨西哥料理很少、不道地</li><li>健康餐盒&墨菜結合天衣無縫</li><li>手撕豬餡餅軟嫩不柴</li><li>墨式薯條脆！好！吃！</li><li>墨式街頭玉米甜玉米+開心果組合太甜</li></ul>         </div>`)[0];
-                popup_31f00735619f421084b8744e219f668a.setContent(html_3fa707b86d994b2c2a45047a33a3bd51);
+                var html_fabf1b8545dbb4d32ff328c0627eed6d = $(`<div id="html_fabf1b8545dbb4d32ff328c0627eed6d" style="width: 100.0%; height: 100.0%;">         <b>All In One Burger 美式漢堡 ｜營業至5/25，店面即將更換到內湖新店面｜</b><br>         <b>Sentiment Score:</b> 3.0<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>漢堡好吃</li><li>店內座位有限</li><li>餐點水準高</li><li>醬料做得好</li><li>薯條雞塊炸得好</li><li>牛肉堡可換素食</li></ul>         </div>`)[0];
+                popup_c89b9d3552b1b6b4fd22033d118cd760.setContent(html_fabf1b8545dbb4d32ff328c0627eed6d);
             
         
 
-        marker_bb7bd203f0640a5be4d103f0343b0584.bindPopup(popup_31f00735619f421084b8744e219f668a)
+        marker_d07af11f63110e30931ad0be8709989d.bindPopup(popup_c89b9d3552b1b6b4fd22033d118cd760)
         ;
 
         
     
     
-            var marker_65472aac7fe96944fb99b6f8849f5a5d = L.marker(
-                [25.0433606, 121.5312936],
+            var marker_bd26a3e635e2cffbab4f9a83f9a9d999 = L.marker(
+                [25.108601, 121.5185006],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_f89debf686e36d2454502b7633c9cd50 = L.popup({
-  "maxWidth": "100%",
+        var popup_4546cfc983f3dbcc2e71b04d9047cc55 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_14d260c00e56fe5169cd3360e0c94958 = $(`<div id="html_14d260c00e56fe5169cd3360e0c94958" style="width: 100.0%; height: 100.0%;">         <b>TacoJoe 美墨塔可</b><br>         <b>Sentiment Score:</b> 2.00<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>蝦這次加的是辣醬反而沒有第一次吃的驚艷感下次可能還是要吃原味</li><li>燉牛是這次三個中最好吃的</li><li>香菜人我想要更多香菜就是了</li><li>點了墨蝦捲餅+酪梨醬，捲餅裡面包很多蝦子、薯條和飯，但醬料不是我愛的</li><li>蝦子口味的塔可超好吃</li><li>我一定會再回來試別的口味</li></ul>         </div>`)[0];
-                popup_f89debf686e36d2454502b7633c9cd50.setContent(html_14d260c00e56fe5169cd3360e0c94958);
+                var html_fd233668d6c60cd0ec40b179994437e0 = $(`<div id="html_fd233668d6c60cd0ec40b179994437e0" style="width: 100.0%; height: 100.0%;">         <b>樂莉漢堡Laley Burger 明德店</b><br>         <b>Sentiment Score:</b> 3.0<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>餐點新鮮美味</li><li>環境明亮乾淨</li><li>速度快服務親切</li><li>起司蛋餅酥脆</li><li>人氣店送餐快</li><li>油炸味重空氣不流</li></ul>         </div>`)[0];
+                popup_4546cfc983f3dbcc2e71b04d9047cc55.setContent(html_fd233668d6c60cd0ec40b179994437e0);
             
         
 
-        marker_65472aac7fe96944fb99b6f8849f5a5d.bindPopup(popup_f89debf686e36d2454502b7633c9cd50)
+        marker_bd26a3e635e2cffbab4f9a83f9a9d999.bindPopup(popup_4546cfc983f3dbcc2e71b04d9047cc55)
         ;
 
         
     
     
-            var marker_85d51b06b8bc666a964621558453ce2b = L.marker(
-                [25.0539759, 121.5257614],
+            var marker_26d92dbf5e7cd844e851837e3b47dadf = L.marker(
+                [25.1169933, 121.5182641],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_92674abac5fb2a8b4c5aca282d48c445 = L.popup({
-  "maxWidth": "100%",
+        var popup_68d8564fbae9fe492074049fa52579e4 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_ca47e0cdd30b17f5ed8856bda6b99d8e = $(`<div id="html_ca47e0cdd30b17f5ed8856bda6b99d8e" style="width: 100.0%; height: 100.0%;">         <b>TGI FRIDAYS Linsen Restaurant</b><br>         <b>Sentiment Score:</b> 3.00<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>牛排口感可以給到80分</li><li>調酒建議女士控制飲用</li><li>服務很好，專員關心菜色</li><li>員工有帶娃包</li><li>菜色好好吃，服務友善</li><li>吃得又飽又開心</li><li>吧檯有大叔來吃飯喝酒</li><li>感謝熱情洋溢的服務和生日祝福</li><li>服務很好，Jerry很細心</li><li>TexMex菜系很特別，會回來吃</li></ul>         </div>`)[0];
-                popup_92674abac5fb2a8b4c5aca282d48c445.setContent(html_ca47e0cdd30b17f5ed8856bda6b99d8e);
+                var html_9c356f69f4beadebad9f4a2ae894e176 = $(`<div id="html_9c356f69f4beadebad9f4a2ae894e176" style="width: 100.0%; height: 100.0%;">         <b>拉亞漢堡 北市石牌（國北護旁）</b><br>         <b>Sentiment Score:</b> 2.4<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>上冰拿鐵很快</li><li>香蕉蛋餅等太久</li><li>口感特別，不錯</li><li>服務人員需加強</li><li>除貝果外份量小</li><li>貝果醬塗爆</li></ul>         </div>`)[0];
+                popup_68d8564fbae9fe492074049fa52579e4.setContent(html_9c356f69f4beadebad9f4a2ae894e176);
             
         
 
-        marker_85d51b06b8bc666a964621558453ce2b.bindPopup(popup_92674abac5fb2a8b4c5aca282d48c445)
+        marker_26d92dbf5e7cd844e851837e3b47dadf.bindPopup(popup_68d8564fbae9fe492074049fa52579e4)
         ;
 
         
     
     
-            var marker_3d98e19c5f8a7cb30716bb78274cd781 = L.marker(
-                [25.0541778, 121.524244],
+            var marker_dd243e4055c7d16e3d7bb0e1cadd9ea8 = L.marker(
+                [25.1014497, 121.5284546],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_10582431a90de065d0b1e068398774fb = L.popup({
-  "maxWidth": "100%",
+        var popup_62f7b767983c500f72999b59badcfe5e = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_e71e363aaca0117b6a21573c1071e5eb = $(`<div id="html_e71e363aaca0117b6a21573c1071e5eb" style="width: 100.0%; height: 100.0%;">         <b>azie</b><br>         <b>Sentiment Score:</b> 2.80<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>晶華酒店是我的名單中的第一名</li><li>餐點單價都很高</li><li>肋眼牛排點了5分熟</li><li>紅燒牛肉麵這個蠻好吃的</li><li>紅酒一共三款，喜歡第一三杯</li><li>德國豬腳蠻好吃的只是很容易膩</li></ul>         </div>`)[0];
-                popup_10582431a90de065d0b1e068398774fb.setContent(html_e71e363aaca0117b6a21573c1071e5eb);
+                var html_2987628b222274ad2e7e887d40a134cc = $(`<div id="html_2987628b222274ad2e7e887d40a134cc" style="width: 100.0%; height: 100.0%;">         <b>茉莉漢堡 芝山店</b><br>         <b>Sentiment Score:</b> 2.4<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>餐點很好吃</li><li>用餐環境舒適</li><li>價格偏貴</li></ul>         </div>`)[0];
+                popup_62f7b767983c500f72999b59badcfe5e.setContent(html_2987628b222274ad2e7e887d40a134cc);
             
         
 
-        marker_3d98e19c5f8a7cb30716bb78274cd781.bindPopup(popup_10582431a90de065d0b1e068398774fb)
+        marker_dd243e4055c7d16e3d7bb0e1cadd9ea8.bindPopup(popup_62f7b767983c500f72999b59badcfe5e)
         ;
 
         
     
     
-            var marker_67c553f2c95f9fab6df35c1760d33b3e = L.marker(
-                [25.0514343, 121.5213222],
+            var marker_65e939c23e82bd3a4829dc7dfae3f3b0 = L.marker(
+                [25.107058, 121.5326561],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_18cc4adf0e4396ed781b09bbb6d997e0 = L.popup({
-  "maxWidth": "100%",
+        var popup_85321345e8645d1066e876262f0106a6 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_034dd4ae348703c5efc31a16f568a152 = $(`<div id="html_034dd4ae348703c5efc31a16f568a152" style="width: 100.0%; height: 100.0%;">         <b>Crazy MaMa</b><br>         <b>Sentiment Score:</b> 2.20<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>梅花豬燉飯真的有夠鹹</li><li>白酒蛤蜊義大利麵風味不錯</li><li>商業午餐比較划算</li><li>明太子干貝透抽義大利麵普通</li><li>脆薯口感不錯</li><li>環境普通，廁所乾淨</li><li>義式焦糖布丁口感變化且美味</li></ul>         </div>`)[0];
-                popup_18cc4adf0e4396ed781b09bbb6d997e0.setContent(html_034dd4ae348703c5efc31a16f568a152);
+                var html_47da82f946ba0df6b3a8bb799b45c96f = $(`<div id="html_47da82f946ba0df6b3a8bb799b45c96f" style="width: 100.0%; height: 100.0%;">         <b>Q Burger 士林忠義店</b><br>         <b>Sentiment Score:</b> 1.6<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>價格稍微偏高</li><li>總匯口感偏乾</li><li>餐點多樣化</li><li>服務親切</li><li>出餐快速</li><li>有人插隊</li></ul>         </div>`)[0];
+                popup_85321345e8645d1066e876262f0106a6.setContent(html_47da82f946ba0df6b3a8bb799b45c96f);
             
         
 
-        marker_67c553f2c95f9fab6df35c1760d33b3e.bindPopup(popup_18cc4adf0e4396ed781b09bbb6d997e0)
+        marker_65e939c23e82bd3a4829dc7dfae3f3b0.bindPopup(popup_85321345e8645d1066e876262f0106a6)
         ;
 
         
     
     
-            var marker_352929d868b9da413cd16f8a3d1a99bf = L.marker(
-                [25.0313466, 121.5532188],
+            var marker_f8d193e95bdc333165d4ed94955dc6bf = L.marker(
+                [25.1199403, 121.5292432],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_682d65cc4b4b7877a54e8bf4928a29fc = L.popup({
-  "maxWidth": "100%",
+        var popup_a491b3a2f2900310813c938bdbfbf07f = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_d4b8a44e06efc46d312fa33741b255db = $(`<div id="html_d4b8a44e06efc46d312fa33741b255db" style="width: 100.0%; height: 100.0%;">         <b>MASA Tongan Store</b><br>         <b>Sentiment Score:</b> 2.60<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>taco上面有一點馬鈴薯泥也好讚</li><li>薯條炸的比想像好吃！！</li><li>塔可碗份量爆大 建議2-3人分食！</li><li>塔可的餅皮是軟軟的，不過還是有香氣</li><li>米漿很好喝！第一次嘗試超級驚豔！</li><li>一份要等至少10分鐘以上</li></ul>         </div>`)[0];
-                popup_682d65cc4b4b7877a54e8bf4928a29fc.setContent(html_d4b8a44e06efc46d312fa33741b255db);
+                var html_d91ab7ae05487f636d94ad2c7cdaeb58 = $(`<div id="html_d91ab7ae05487f636d94ad2c7cdaeb58" style="width: 100.0%; height: 100.0%;">         <b>Mary's Hamburger</b><br>         <b>Sentiment Score:</b> 2.0<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>牛肉排調味夠鹹很香</li><li>薯條粗炸技術普通</li><li>漢堡層次感多口味中上</li><li>環境太熱沒開空調</li><li>服務生很酷惜字如金</li></ul>         </div>`)[0];
+                popup_a491b3a2f2900310813c938bdbfbf07f.setContent(html_d91ab7ae05487f636d94ad2c7cdaeb58);
             
         
 
-        marker_352929d868b9da413cd16f8a3d1a99bf.bindPopup(popup_682d65cc4b4b7877a54e8bf4928a29fc)
+        marker_f8d193e95bdc333165d4ed94955dc6bf.bindPopup(popup_a491b3a2f2900310813c938bdbfbf07f)
         ;
 
         
     
     
-            var marker_71378a507b20ddfcff49b9602e6e6b83 = L.marker(
-                [25.0409565, 121.5313087],
+            var marker_003f27e85f1561aad1376d963153e272 = L.marker(
+                [25.1109589, 121.5163134],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_c03518b1e0f85d38ba1667fa74c3d263 = L.popup({
-  "maxWidth": "100%",
+        var popup_e55e96d2b9ab84f6a9c83fd44fe809d1 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_d580b38794c0a650715c1d8a88d57939 = $(`<div id="html_d580b38794c0a650715c1d8a88d57939" style="width: 100.0%; height: 100.0%;">         <b>GinGin Coffee 忠孝本店</b><br>         <b>Sentiment Score:</b> 2.00<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>雞排三明治的雞肉表皮酥脆而且很多汁</li><li>醬本身的味道就很好了</li><li>餐廳氣氛良好、裝潢跟餐具整體也很用心</li><li>服務態度很親切、說明清楚</li><li>餐點也在水準之上</li></ul>         </div>`)[0];
-                popup_c03518b1e0f85d38ba1667fa74c3d263.setContent(html_d580b38794c0a650715c1d8a88d57939);
+                var html_2673671c41016385b3987c834fd6088a = $(`<div id="html_2673671c41016385b3987c834fd6088a" style="width: 100.0%; height: 100.0%;">         <b>Hong Ya Hamburger</b><br>         <b>Sentiment Score:</b> 2.0<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>老闆娘親切</li><li>餐點多樣</li><li>三明治好吃</li><li>燈光需調整</li><li>衛生待改善</li><li>食安問題需注意</li></ul>         </div>`)[0];
+                popup_e55e96d2b9ab84f6a9c83fd44fe809d1.setContent(html_2673671c41016385b3987c834fd6088a);
             
         
 
-        marker_71378a507b20ddfcff49b9602e6e6b83.bindPopup(popup_c03518b1e0f85d38ba1667fa74c3d263)
+        marker_003f27e85f1561aad1376d963153e272.bindPopup(popup_e55e96d2b9ab84f6a9c83fd44fe809d1)
         ;
 
         
     
     
-            var marker_83d346b6782dc6b6e5c4d5aed0788141 = L.marker(
-                [25.0230301, 121.5286396],
+            var marker_63cae5a310cce465e0caeaec89608d95 = L.marker(
+                [25.1111077, 121.5195921],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_f5465d16bf2df77a659b0b0b71bb9b28 = L.popup({
-  "maxWidth": "100%",
+        var popup_bf2f72fced024708bd1c0a4acfb5fc6b = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_60865191decd4ab4fee3ec4af06f66f7 = $(`<div id="html_60865191decd4ab4fee3ec4af06f66f7" style="width: 100.0%; height: 100.0%;">         <b>Macho Tacos 瑪丘墨式餅舖 (師大 Shida)</b><br>         <b>Sentiment Score:</b> 1.60<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>座位才自由入座～</li><li>肉的部分是真的很多</li><li>CP值很高～</li><li>個人認為CP值很低</li><li>口感實在不太好</li><li>如果要長久經營我想店家應該品質需要再多留意</li></ul>         </div>`)[0];
-                popup_f5465d16bf2df77a659b0b0b71bb9b28.setContent(html_60865191decd4ab4fee3ec4af06f66f7);
+                var html_463d725be61e280467057bd5f3c73a82 = $(`<div id="html_463d725be61e280467057bd5f3c73a82" style="width: 100.0%; height: 100.0%;">         <b>Q Burger 北投懷德店</b><br>         <b>Sentiment Score:</b> 3.4<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>服務熱情快速</li><li>生意爆好排隊</li><li>ABC套餐燙飲料</li><li>牛肉漢堡冷口感差</li><li>可朗芙小顆好吃</li><li>地瓜球點讚❤️</li></ul>         </div>`)[0];
+                popup_bf2f72fced024708bd1c0a4acfb5fc6b.setContent(html_463d725be61e280467057bd5f3c73a82);
             
         
 
-        marker_83d346b6782dc6b6e5c4d5aed0788141.bindPopup(popup_f5465d16bf2df77a659b0b0b71bb9b28)
+        marker_63cae5a310cce465e0caeaec89608d95.bindPopup(popup_bf2f72fced024708bd1c0a4acfb5fc6b)
         ;
 
         
     
     
-            var marker_2d93b8d0d1466240d9d4a578a8030637 = L.marker(
-                [25.0403438, 121.5543568],
+            var marker_a82c850cb7b104626933b7a96244bfc9 = L.marker(
+                [25.1144732, 121.5137472],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_e68c74e1ff8279d56581068eda5c64e5 = L.popup({
-  "maxWidth": "100%",
+        var popup_539a337356f95ca39783cfe15f49d690 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_b5c27eddc656c018af6115c5f661f24a = $(`<div id="html_b5c27eddc656c018af6115c5f661f24a" style="width: 100.0%; height: 100.0%;">         <b>Macho Tacos 瑪丘墨式餅舖 (延吉 Yanji)</b><br>         <b>Sentiment Score:</b> 2.60<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>超級好吃的墨西哥餅皮！！！要加套餐</li><li>服務人員也超級熱心唷👍</li><li>牛排薄餅有點太鹹，需加上番茄莎莎醬才好一點。</li></ul>         </div>`)[0];
-                popup_e68c74e1ff8279d56581068eda5c64e5.setContent(html_b5c27eddc656c018af6115c5f661f24a);
+                var html_082bcbc8bf1755d8057d1fc4d76f43c1 = $(`<div id="html_082bcbc8bf1755d8057d1fc4d76f43c1" style="width: 100.0%; height: 100.0%;">         <b>MOS Burger</b><br>         <b>Sentiment Score:</b> 0.4<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>營業時間長</li><li>餐點缺貨嚴重</li><li>店內環境髒亂</li><li>客人坐久不走</li><li>洗手間髒亂</li><li>自助點餐機缺貨</li></ul>         </div>`)[0];
+                popup_539a337356f95ca39783cfe15f49d690.setContent(html_082bcbc8bf1755d8057d1fc4d76f43c1);
             
         
 
-        marker_2d93b8d0d1466240d9d4a578a8030637.bindPopup(popup_e68c74e1ff8279d56581068eda5c64e5)
+        marker_a82c850cb7b104626933b7a96244bfc9.bindPopup(popup_539a337356f95ca39783cfe15f49d690)
         ;
 
         
     
     
-            var marker_f78d8dcde29ad0bb737fbff026822683 = L.marker(
-                [25.0462736, 121.5530798],
+            var marker_357d9e51ba840771588a08afdb3c6487 = L.marker(
+                [25.1077236, 121.528151],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_478e66e177cf5c84abe683ad46a19940 = L.popup({
-  "maxWidth": "100%",
+        var popup_34361af3592dc7d838faefdee73e9100 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_7de0448a34f1cc32d3f103af7ad04930 = $(`<div id="html_7de0448a34f1cc32d3f103af7ad04930" style="width: 100.0%; height: 100.0%;">         <b>AJ TACO</b><br>         <b>Sentiment Score:</b> 2.00<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>紅飯乾鬆入味，結球萵苣量多</li><li>座位並不多環境上蠻乾淨的</li><li>菜單的種類並不算很多</li><li>酥脆又紮實👍</li><li>男生吃一份也不會餓</li><li>份量對女生來說滿剛好的</li><li>墨西哥料理是有其獨特魔力的</li><li>餅皮脆中帶軟</li><li>薯條淋起司醬也很讚</li><li>服務員服務親切</li></ul>         </div>`)[0];
-                popup_478e66e177cf5c84abe683ad46a19940.setContent(html_7de0448a34f1cc32d3f103af7ad04930);
+                var html_5dad3f0bc4ad35e137f56ae8a01398d5 = $(`<div id="html_5dad3f0bc4ad35e137f56ae8a01398d5" style="width: 100.0%; height: 100.0%;">         <b>貝果漢堡</b><br>         <b>Sentiment Score:</b> 2.6<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>用餐環境乾淨</li><li>座位掃碼點餐方便</li><li>食材新鮮現煮現吃</li><li>宮保雞丁辣度可調</li><li>奶茶紅茶好喝甜度可調</li><li>工作人員有條理服務</li></ul>         </div>`)[0];
+                popup_34361af3592dc7d838faefdee73e9100.setContent(html_5dad3f0bc4ad35e137f56ae8a01398d5);
             
         
 
-        marker_f78d8dcde29ad0bb737fbff026822683.bindPopup(popup_478e66e177cf5c84abe683ad46a19940)
+        marker_357d9e51ba840771588a08afdb3c6487.bindPopup(popup_34361af3592dc7d838faefdee73e9100)
         ;
 
         
     
     
-            var marker_005257e7cb9a5c4450df21377f2caaee = L.marker(
-                [25.0439018, 121.5314167],
+            var marker_e2cd82d11983b47c7a9cf4472fb7a343 = L.marker(
+                [25.1125943, 121.5374672],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_381127476b10c1f7ce11fc46aded3221 = L.popup({
-  "maxWidth": "100%",
+        var popup_621b3011d5049f8a752c8b579f2696c0 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_f2323445e017d18db40b2d22ab5cb68e = $(`<div id="html_f2323445e017d18db40b2d22ab5cb68e" style="width: 100.0%; height: 100.0%;">         <b>KFC</b><br>         <b>Sentiment Score:</b> 2.80<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>機器點餐完後可以先上二樓座位區等待</li><li>餐點製作完成後會發簡訊通知</li><li>肯德基的蛋塔毋庸置疑的好吃</li><li>出餐速度快，要按密碼從櫃子內取餐</li><li>肯德基已經進入了智能時代</li></ul>         </div>`)[0];
-                popup_381127476b10c1f7ce11fc46aded3221.setContent(html_f2323445e017d18db40b2d22ab5cb68e);
+                var html_663f9aaed30558417c43d986ab8a67bb = $(`<div id="html_663f9aaed30558417c43d986ab8a67bb" style="width: 100.0%; height: 100.0%;">         <b>Hong Ya Hamburger</b><br>         <b>Sentiment Score:</b> 1.8<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>菜單欺騙消費者</li><li>熱狗數量不足</li><li>總匯套餐冷食</li><li>吐司仍很白</li><li>餐點無法客製化</li><li>出餐速度過慢</li></ul>         </div>`)[0];
+                popup_621b3011d5049f8a752c8b579f2696c0.setContent(html_663f9aaed30558417c43d986ab8a67bb);
             
         
 
-        marker_005257e7cb9a5c4450df21377f2caaee.bindPopup(popup_381127476b10c1f7ce11fc46aded3221)
+        marker_e2cd82d11983b47c7a9cf4472fb7a343.bindPopup(popup_621b3011d5049f8a752c8b579f2696c0)
         ;
 
         
     
     
-            var marker_d16d1ab8d9a914bf7bc2ce9b8054f50f = L.marker(
-                [25.0537585, 121.5313825],
+            var marker_72800768a5a0ffeea4270fc7f04867cb = L.marker(
+                [25.1188099, 121.5155808],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_198786bdd4c0903c3ea6fd429da85120 = L.popup({
-  "maxWidth": "100%",
+        var popup_c0ba947cff20b91a07cb851eeb36d73d = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_f1af08ee13a1a01e73c0cec76faf37de = $(`<div id="html_f1af08ee13a1a01e73c0cec76faf37de" style="width: 100.0%; height: 100.0%;">         <b>Mei Er Mei Breakfast Restaurant</b><br>         <b>Sentiment Score:</b> 3.00<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>巧克力吐司好好吃！</li><li>蛋餅是好吃的喔！</li><li>牛肉蛋三明治非常值得</li><li>老闆夫妻態度非常親切</li><li>醬油膏真的算是特色</li><li>便宜到我很想問老闆老闆娘你們不用賺錢嗎</li><li>這家店一樣秉持著薄利多銷的原則</li><li>三明治外觀吸引人</li><li>三明治口感絕對是亮點</li><li>三明治的食材顯然維持了極高的新鮮度和品質水準</li></ul>         </div>`)[0];
-                popup_198786bdd4c0903c3ea6fd429da85120.setContent(html_f1af08ee13a1a01e73c0cec76faf37de);
+                var html_64c596128fae89a1b62af1bfe2731ef0 = $(`<div id="html_64c596128fae89a1b62af1bfe2731ef0" style="width: 100.0%; height: 100.0%;">         <b>布咯漢堡 BURGER</b><br>         <b>Sentiment Score:</b> 2.2<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>外表吐司又軟又甜</li><li>鹹香鮪魚好好吃</li><li>環境昏暗冷氣不足</li><li>漢堡、吐司、蛋餅品項多</li><li>照燒河粉有彈性</li><li>丹佛起司蛋捲推薦</li></ul>         </div>`)[0];
+                popup_c0ba947cff20b91a07cb851eeb36d73d.setContent(html_64c596128fae89a1b62af1bfe2731ef0);
             
         
 
-        marker_d16d1ab8d9a914bf7bc2ce9b8054f50f.bindPopup(popup_198786bdd4c0903c3ea6fd429da85120)
+        marker_72800768a5a0ffeea4270fc7f04867cb.bindPopup(popup_c0ba947cff20b91a07cb851eeb36d73d)
         ;
 
         
     
     
-            var marker_aabac35fb672a067a29a50d716d056d9 = L.marker(
-                [25.0451895, 121.5152316],
+            var marker_fcaf0afe53a2f18122f996445c40252e = L.marker(
+                [25.1202099, 121.5291869],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_bdc43c418d4c6a7701a72b0a40ba5f30 = L.popup({
-  "maxWidth": "100%",
+        var popup_c9ed4e0a057a73cfb804a20fff45325d = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_b565789727a7c0ac067c9bbc0782125b = $(`<div id="html_b565789727a7c0ac067c9bbc0782125b" style="width: 100.0%; height: 100.0%;">         <b>Taco Outlet</b><br>         <b>Sentiment Score:</b> N/A<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>食物新鮮</li><li>服務效率高</li><li>環境舒適</li><li>價格合理</li></ul>         </div>`)[0];
-                popup_bdc43c418d4c6a7701a72b0a40ba5f30.setContent(html_b565789727a7c0ac067c9bbc0782125b);
+                var html_cf042bd85e4988c7f8f488026a43591e = $(`<div id="html_cf042bd85e4988c7f8f488026a43591e" style="width: 100.0%; height: 100.0%;">         <b>富玉洋行</b><br>         <b>Sentiment Score:</b> 3.0<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>小店感覺秋天適合</li><li>漢堡份量很足</li><li>蜂蜜檸檬好好喝</li><li>漢堡麵包Q彈</li><li>起司蛋糕超好吃</li><li>松露醬薯條很涮嘴</li></ul>         </div>`)[0];
+                popup_c9ed4e0a057a73cfb804a20fff45325d.setContent(html_cf042bd85e4988c7f8f488026a43591e);
             
         
 
-        marker_aabac35fb672a067a29a50d716d056d9.bindPopup(popup_bdc43c418d4c6a7701a72b0a40ba5f30)
+        marker_fcaf0afe53a2f18122f996445c40252e.bindPopup(popup_c9ed4e0a057a73cfb804a20fff45325d)
         ;
 
         
     
     
-            var marker_62d19731b9cd242bbbe311510f2463d0 = L.marker(
-                [25.0525638, 121.5182884],
+            var marker_fff81dcf9826adbb453c784eda51c40e = L.marker(
+                [25.1115829, 121.5192156],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_39a0f366f86702a5d1b2e55637dcf63c = L.popup({
-  "maxWidth": "100%",
+        var popup_3c4a39bf4413ca3e6437c503a13de004 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_c85a4d1c716492dc8d6b809fabd92054 = $(`<div id="html_c85a4d1c716492dc8d6b809fabd92054" style="width: 100.0%; height: 100.0%;">         <b>61 note</b><br>         <b>Sentiment Score:</b> 3.00<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>好喝，超級好喝，黑糖牛奶上面還有烤糖奶泡</li><li>塔可飯比想像中好吃！很推</li><li>紗布起司蛋糕很吸睛，味道和一般紐約起司蛋糕非常不一樣，很像莓果乳酪，讚</li><li>咖哩飯非常好吃</li><li>環境很放鬆，喜歡</li><li>廁所有i人專用遮沖水聲</li></ul>         </div>`)[0];
-                popup_39a0f366f86702a5d1b2e55637dcf63c.setContent(html_c85a4d1c716492dc8d6b809fabd92054);
+                var html_f0729d176fa768c4fcafeaa47d5e73c1 = $(`<div id="html_f0729d176fa768c4fcafeaa47d5e73c1" style="width: 100.0%; height: 100.0%;">         <b>拉亞漢堡 北市懷德</b><br>         <b>Sentiment Score:</b> 2.8<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>生菜新鮮脆爽</li><li>老闆熱情送薯餅</li><li>餐點口感特別</li><li>早午餐選擇多</li><li>客人心理準備</li><li>薏仁汁大推薦</li></ul>         </div>`)[0];
+                popup_3c4a39bf4413ca3e6437c503a13de004.setContent(html_f0729d176fa768c4fcafeaa47d5e73c1);
             
         
 
-        marker_62d19731b9cd242bbbe311510f2463d0.bindPopup(popup_39a0f366f86702a5d1b2e55637dcf63c)
+        marker_fff81dcf9826adbb453c784eda51c40e.bindPopup(popup_3c4a39bf4413ca3e6437c503a13de004)
         ;
 
         
     
     
-            var marker_bb1dc79de25de508955628cfc72cfd52 = L.marker(
-                [25.0325348, 121.5536508],
+            var marker_b0b11f4e2a78271e69754f69bc0e68f4 = L.marker(
+                [25.1163403, 121.516259],
                 {
 }
-            ).addTo(map_a4297a14994cd9abfe090cb4fb188fe3);
+            ).addTo(map_dfc81215a6e0d6aeb8c77b95f2e2c2de);
         
     
-        var popup_c36ab4fa9fd3a5ddc35d7c07420500fc = L.popup({
-  "maxWidth": "100%",
+        var popup_078996219f066ced6ddb26a7e2d8f8c4 = L.popup({
+  "maxWidth": 300,
 });
 
         
             
-                var html_3b82ced1f14269b3e86b93d652d99603 = $(`<div id="html_3b82ced1f14269b3e86b93d652d99603" style="width: 100.0%; height: 100.0%;">         <b>Pàng Taqueria / PÀNG TACO / 胖 塔可利亞</b><br>         <b>Sentiment Score:</b> 1.60<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>炸魚清爽，希望醬料多</li><li>大腸滷得入味，但料獨立</li><li>手撕豬肉嫩，綠色醬好吃</li><li>燉牛頰起司餡餅熱上桌</li><li>大腸口味太絕了</li><li>桌上調料口味不同</li><li>價格仍然不低</li><li>滷大腸口味最愛</li><li>餅皮軟硬適中</li><li>洗手間方便，舒適愉悅</li></ul>         </div>`)[0];
-                popup_c36ab4fa9fd3a5ddc35d7c07420500fc.setContent(html_3b82ced1f14269b3e86b93d652d99603);
+                var html_d16e9bbc8078b38802565c5f60c7298c = $(`<div id="html_d16e9bbc8078b38802565c5f60c7298c" style="width: 100.0%; height: 100.0%;">         <b>畊 PLOW Nine White</b><br>         <b>Sentiment Score:</b> 2.8<br>         <b>Keywords:</b> <ul style='padding-left:18px; margin:5px 0;'><li>感謝闆娘熱情款待</li><li>料理超級無敵好吃</li><li>培根融入麵中美味</li><li>蒜香吐司沾醬超好吃</li><li>漢堡排多汁推推</li><li>義大利麵濃郁滿分</li></ul>         </div>`)[0];
+                popup_078996219f066ced6ddb26a7e2d8f8c4.setContent(html_d16e9bbc8078b38802565c5f60c7298c);
             
         
 
-        marker_bb1dc79de25de508955628cfc72cfd52.bindPopup(popup_c36ab4fa9fd3a5ddc35d7c07420500fc)
+        marker_b0b11f4e2a78271e69754f69bc0e68f4.bindPopup(popup_078996219f066ced6ddb26a7e2d8f8c4)
         ;
 
         

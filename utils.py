@@ -1,18 +1,50 @@
 import requests
 import folium
 from folium.features import CustomIcon
+from folium import Html, Popup
 from datetime import datetime
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline, AutoModelForSeq2SeqLM
 import torch
 import os
 from openai import OpenAI
+from branca.element import Figure
 
 model_sentiment_name = "tabularisai/multilingual-sentiment-analysis"
 tokenizer_sentiment = AutoTokenizer.from_pretrained(model_sentiment_name)
 model_sentiment = AutoModelForSequenceClassification.from_pretrained(model_sentiment_name)
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+
+import json
+from db import db
+from models import PlaceCache
+
+def get_or_compute(place, api_key, client):
+    # 1. Try cache
+    pc = PlaceCache.query.filter_by(place_id=place['place_id']).first()
+    if pc:
+        return json.loads(pc.keywords_json), pc.sentiment, pc.review_count
+
+    # 2. Not cached → run inference
+    reviews    = fetch_reviews(place['place_id'], api_key)
+    keywords   = extract_keywords(reviews, client)
+    sentiments = predict_sentiment(reviews)
+    avg_score, count = average_sentiment_score(sentiments)
+
+    # 3. Save to cache
+    pc = PlaceCache(
+        place_id      = place['place_id'],
+        name          = place['name'],
+        sentiment     = float(avg_score),
+        review_count  = count,
+        keywords_json = json.dumps(keywords)
+    )
+    db.session.add(pc)
+    db.session.commit()
+
+    return keywords, float(avg_score), count
 
 
-# 取得地點
+
 def fetch_places(keyword, api_key, location):
     radius = 1000
     url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?query={keyword}&location={location}&radius={radius}&key={api_key}"
@@ -59,13 +91,18 @@ def extract_keywords(reviews, client, model="gpt-3.5-turbo"):
     review_text = "\n".join(reviews)
 
     prompt = f"""
-        請從以下評論中萃取出關鍵意見句，著重於具體描述的部分（注意！每句必須在六個字以內，例如：環境乾淨、服務員態度差、菜單選項少），並以條列形式列出：
-        評論：
-        {review_text}
-        請輸出一組關鍵意見句清單（不需要說明）：
-        """
+            你是一個「字數管理員」：請從下列評論中嚴格萃取「最多六個中文字」的關鍵意見句，每句不得超過六個中文字（不含標點符號），超過請自動重寫為等義的六字內短句，或捨棄。輸出格式為純粹的條列清單，每行開頭用「- 」，不加其他文字。  
+            評論：
+            {review_text}
 
-    # 呼叫 OpenAI API
+            範例正確格式：
+            - 環境乾淨
+            - 服務態度差
+            - 菜單選擇少
+
+            請開始：
+            """
+
     response = client.chat.completions.create(model=model,
     messages=[
         {"role": "user", "content": prompt}
@@ -98,14 +135,12 @@ def generate_map(places, api_key, keyword, location, client):
         loc = place['geometry']['location']
         name = place['name']
         place_id = place['place_id']
-        reviews = fetch_reviews(place_id, api_key)
 
-        keywords = extract_keywords(reviews, client)
-
-        # print(f"Reviews for {name}: {reviews}")
-        sentiments = predict_sentiment(reviews)
-        avg_score, review_count = average_sentiment_score(sentiments)
-        # summary = summarize_reviews(reviews)
+        # reviews = fetch_reviews(place_id, api_key)
+        # keywords = extract_keywords(reviews, client)
+        # sentiments = predict_sentiment(reviews)
+        # avg_score, review_count = average_sentiment_score(sentiments)
+        keywords, avg_score, review_count = get_or_compute(place, api_key, client)
 
         keywords_html = "<ul style='padding-left:18px; margin:5px 0;'>" + "".join(
             f"<li>{kw}</li>" for kw in keywords[:10]
@@ -117,14 +152,15 @@ def generate_map(places, api_key, keyword, location, client):
         <b>Keywords:</b> {keywords_html}
         """
 
+        html = Html(popup_html, script=True)
 
+        popup = Popup(html, max_width=300)
 
 
         folium.Marker(
             location=[loc['lat'], loc['lng']],
-            popup=popup_html
+            popup=popup
         ).add_to(m)
 
     os.makedirs("static", exist_ok=True)
     m.save("static/map_with_opening_dates.html")
-
