@@ -116,16 +116,6 @@ def extract_keywords(reviews, client, model="gpt-3.5-turbo"):
     return keywords
 
 
-# def get_earliest_review_date(place_id, api_key):
-#     url = f"https://maps.googleapis.com/maps/api/place/details/json?place_id={place_id}&fields=reviews&key={api_key}"
-#     res = requests.get(url).json()
-#     try:
-#         timestamps = [review['time'] for review in res['result']['reviews']]
-#         earliest = min(timestamps)
-#         return datetime.utcfromtimestamp(earliest).strftime('%Y-%m-%d')
-#     except:
-#         return "Unknown"
-
 def generate_map(places, api_key, keyword, location, client):
     lat, lng = map(float, location.split(','))
     m = folium.Map(location=[lat, lng], zoom_start=15)
@@ -136,10 +126,6 @@ def generate_map(places, api_key, keyword, location, client):
         name = place['name']
         place_id = place['place_id']
 
-        # reviews = fetch_reviews(place_id, api_key)
-        # keywords = extract_keywords(reviews, client)
-        # sentiments = predict_sentiment(reviews)
-        # avg_score, review_count = average_sentiment_score(sentiments)
         keywords, avg_score, review_count = get_or_compute(place, api_key, client)
 
         keywords_html = "<ul style='padding-left:18px; margin:5px 0;'>" + "".join(
