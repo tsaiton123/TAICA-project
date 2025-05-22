@@ -49,6 +49,7 @@
       font-size: 1rem;
       outline: none;
       background: white;
+      margin-bottom: 0.5rem;
     }
 
     button {
@@ -106,13 +107,30 @@
     <div id="search-panel">
       <h2>🔍 Explore Nearby Shops</h2>
       <form method="post">
-        <input type="text" name="keyword" placeholder="Search (e.g., ramen, burger)" required />
+        <input
+          type="text"
+          name="keyword"
+          placeholder="Search (e.g., ramen, burger)"
+          required
+          value="{{ keyword if keyword else '' }}"
+        />
+        <br />
+        <input
+          type="text"
+          name="preference"
+          placeholder="Enter preferences, separated by commas"
+          value="{{ preference if preference else '' }}"
+        />
         <input type="hidden" name="lat" id="lat" />
         <input type="hidden" name="lng" id="lng" />
+        <br />
         <button type="submit">Find Places</button>
       </form>
       {% if keyword %}
         <p>Showing results for: <em>{{ keyword }}</em></p>
+      {% endif %}
+      {% if preference %}
+        <p>User preferences: <em>{{ preference }}</em></p>
       {% endif %}
     </div>
 
