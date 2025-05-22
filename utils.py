@@ -8,6 +8,7 @@ import torch
 import os
 from openai import OpenAI
 from branca.element import Figure
+from match_preference import match_preferences
 
 model_sentiment_name = "tabularisai/multilingual-sentiment-analysis"
 tokenizer_sentiment = AutoTokenizer.from_pretrained(model_sentiment_name)
@@ -18,30 +19,34 @@ import json
 from db import db
 from models import PlaceCache
 
-def get_or_compute(place, api_key, client):
+def relation_score(preference, keywords):
+    return match_preferences(preference, keywords)
+
+
+def get_or_compute(place, api_key, client, preference):
     # 1. Try cache
     pc = PlaceCache.query.filter_by(place_id=place['place_id']).first()
     if pc:
-        return json.loads(pc.keywords_json), pc.sentiment, pc.review_count
+        return json.loads(pc.keywords_json), pc.sentiment
 
     # 2. Not cached → run inference
     reviews    = fetch_reviews(place['place_id'], api_key)
     keywords   = extract_keywords(reviews, client)
-    sentiments = predict_sentiment(reviews)
-    avg_score, count = average_sentiment_score(sentiments)
+    # sentiments = predict_sentiment(reviews)
+    # avg_score, count = average_sentiment_score(sentiments)
+    avg_score = relation_score(preference, keywords)[0]
 
     # 3. Save to cache
     pc = PlaceCache(
         place_id      = place['place_id'],
         name          = place['name'],
         sentiment     = float(avg_score),
-        review_count  = count,
         keywords_json = json.dumps(keywords)
     )
     db.session.add(pc)
     db.session.commit()
 
-    return keywords, float(avg_score), count
+    return keywords, float(avg_score)
 
 
 
@@ -74,24 +79,24 @@ def fetch_reviews(place_id, api_key, language='zh-TW'):
     except:
         return []
 
-def predict_sentiment(texts):
-    if not texts:
-        return []
+# def predict_sentiment(texts):
+#     if not texts:
+#         return []
 
-    # inputs = tokenizer(texts, return_tensors="pt", truncation=True, padding=True, max_length=512)
-    inputs = tokenizer_sentiment(texts, return_tensors="pt", truncation=True, padding=True, max_length=512)
-    with torch.no_grad():
-        outputs = model_sentiment(**inputs)
-    probabilities = torch.nn.functional.softmax(outputs.logits, dim=-1)
-    sentiment_map = {0: "Very Negative", 1: "Negative", 2: "Neutral", 3: "Positive", 4: "Very Positive"}
-    return [sentiment_map[p] for p in torch.argmax(probabilities, dim=-1).tolist()]
+#     # inputs = tokenizer(texts, return_tensors="pt", truncation=True, padding=True, max_length=512)
+#     inputs = tokenizer_sentiment(texts, return_tensors="pt", truncation=True, padding=True, max_length=512)
+#     with torch.no_grad():
+#         outputs = model_sentiment(**inputs)
+#     probabilities = torch.nn.functional.softmax(outputs.logits, dim=-1)
+#     sentiment_map = {0: "Very Negative", 1: "Negative", 2: "Neutral", 3: "Positive", 4: "Very Positive"}
+#     return [sentiment_map[p] for p in torch.argmax(probabilities, dim=-1).tolist()]
 
-def average_sentiment_score(sentiments):
-    score_map = {"Very Negative": 0, "Negative": 1, "Neutral": 2, "Positive": 3, "Very Positive": 4}
-    if not sentiments:
-        return "N/A", 0
-    scores = [score_map[s] for s in sentiments]
-    return f"{sum(scores)/len(scores):.2f}", len(scores)
+# def average_sentiment_score(sentiments):
+#     score_map = {"Very Negative": 0, "Negative": 1, "Neutral": 2, "Positive": 3, "Very Positive": 4}
+#     if not sentiments:
+#         return "N/A", 0
+#     scores = [score_map[s] for s in sentiments]
+#     return f"{sum(scores)/len(scores):.2f}", len(scores)
 
 
 
@@ -136,7 +141,7 @@ def get_earliest_review_date(place_id, api_key):
     except:
         return "Unknown"
 
-def generate_map(places, api_key, keyword, location, client):
+def generate_map(places, api_key, preference, location, client):
     lat, lng = map(float, location.split(','))
     m = folium.Map(location=[lat, lng], zoom_start=15)
     ...
@@ -146,11 +151,7 @@ def generate_map(places, api_key, keyword, location, client):
         name = place['name']
         place_id = place['place_id']
 
-        # reviews = fetch_reviews(place_id, api_key)
-        # keywords = extract_keywords(reviews, client)
-        # sentiments = predict_sentiment(reviews)
-        # avg_score, review_count = average_sentiment_score(sentiments)
-        keywords, avg_score, review_count = get_or_compute(place, api_key, client)
+        keywords, avg_score = get_or_compute(place, api_key, client, preference)
 
         keywords_html = "<ul style='padding-left:18px; margin:5px 0;'>" + "".join(
             f"<li>{kw}</li>" for kw in keywords[:10]
