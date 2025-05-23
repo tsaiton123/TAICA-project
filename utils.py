@@ -34,14 +34,14 @@ def get_or_compute(place, api_key, client):
     pc = PlaceCache(
         place_id      = place['place_id'],
         name          = place['name'],
-        sentiment     = float(avg_score),
+        sentiment     = avg_score,
         review_count  = count,
         keywords_json = json.dumps(keywords)
     )
     db.session.add(pc)
     db.session.commit()
 
-    return keywords, float(avg_score), count
+    return keywords, float(avg_score) if avg_score != "N/A" else 0, count
 
 
 
