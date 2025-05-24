@@ -9,3 +9,5 @@ openai
 gunicorn
 dotenv
 flask_sqlalchemy
+sentence-transformers
+

@@ -8,6 +8,7 @@ import torch
 import os
 from openai import OpenAI
 from branca.element import Figure
+from match_preference import match_preferences
 
 model_sentiment_name = "tabularisai/multilingual-sentiment-analysis"
 tokenizer_sentiment = AutoTokenizer.from_pretrained(model_sentiment_name)
@@ -18,30 +19,36 @@ import json
 from db import db
 from models import PlaceCache
 
-def get_or_compute(place, api_key, client):
+def relation_score(preference, keywords):
+    print(match_preferences(preference, keywords))
+    best_keyword, matched_text, score = match_preferences(preference, keywords)[0]  # assume only the first preference
+    return (best_keyword, matched_text, score)    
+
+
+def get_or_compute(place, api_key, client, preference):
     # 1. Try cache
     pc = PlaceCache.query.filter_by(place_id=place['place_id']).first()
     if pc:
-        return json.loads(pc.keywords_json), pc.sentiment, pc.review_count
+        keywords = json.loads(pc.keywords_json)
+        relation = relation_score(preference, keywords)
+        return json.loads(pc.keywords_json), relation
 
     # 2. Not cached → run inference
     reviews    = fetch_reviews(place['place_id'], api_key)
     keywords   = extract_keywords(reviews, client)
-    sentiments = predict_sentiment(reviews)
-    avg_score, count = average_sentiment_score(sentiments)
+    relation = relation_score(preference, keywords)
 
     # 3. Save to cache
     pc = PlaceCache(
         place_id      = place['place_id'],
         name          = place['name'],
-        sentiment     = avg_score,
-        review_count  = count,
         keywords_json = json.dumps(keywords)
     )
     db.session.add(pc)
     db.session.commit()
 
-    return keywords, float(avg_score) if avg_score != "N/A" else 0, count
+    # return keywords, float(r_score) if r_score != "N/A" else 0
+    return keywords, relation
 
 
 
@@ -63,25 +70,25 @@ def fetch_reviews(place_id, api_key, language='zh-TW'):
         return []
 
 # 預測情感
-def predict_sentiment(texts):
-    if not texts:
-        return []
+# def predict_sentiment(texts):
+#     if not texts:
+#         return []
 
-    # inputs = tokenizer(texts, return_tensors="pt", truncation=True, padding=True, max_length=512)
-    inputs = tokenizer_sentiment(texts, return_tensors="pt", truncation=True, padding=True, max_length=512)
-    with torch.no_grad():
-        outputs = model_sentiment(**inputs)
-    probabilities = torch.nn.functional.softmax(outputs.logits, dim=-1)
-    sentiment_map = {0: "Very Negative", 1: "Negative", 2: "Neutral", 3: "Positive", 4: "Very Positive"}
-    return [sentiment_map[p] for p in torch.argmax(probabilities, dim=-1).tolist()]
+#     # inputs = tokenizer(texts, return_tensors="pt", truncation=True, padding=True, max_length=512)
+#     inputs = tokenizer_sentiment(texts, return_tensors="pt", truncation=True, padding=True, max_length=512)
+#     with torch.no_grad():
+#         outputs = model_sentiment(**inputs)
+#     probabilities = torch.nn.functional.softmax(outputs.logits, dim=-1)
+#     sentiment_map = {0: "Very Negative", 1: "Negative", 2: "Neutral", 3: "Positive", 4: "Very Positive"}
+#     return [sentiment_map[p] for p in torch.argmax(probabilities, dim=-1).tolist()]
 
 # 計算平均情感分數
-def average_sentiment_score(sentiments):
-    score_map = {"Very Negative": 0, "Negative": 1, "Neutral": 2, "Positive": 3, "Very Positive": 4}
-    if not sentiments:
-        return "N/A", 0
-    scores = [score_map[s] for s in sentiments]
-    return f"{sum(scores)/len(scores):.2f}", len(scores)
+# def average_sentiment_score(sentiments):
+#     score_map = {"Very Negative": 0, "Negative": 1, "Neutral": 2, "Positive": 3, "Very Positive": 4}
+#     if not sentiments:
+#         return "N/A", 0
+#     scores = [score_map[s] for s in sentiments]
+#     return f"{sum(scores)/len(scores):.2f}", len(scores)
 
 
 # 取得評論的關鍵意見句
@@ -116,37 +123,69 @@ def extract_keywords(reviews, client, model="gpt-3.5-turbo"):
     return keywords
 
 
-def generate_map(places, api_key, keyword, location, client):
+def generate_map(places, api_key, preference, location, client):
     lat, lng = map(float, location.split(','))
     m = folium.Map(location=[lat, lng], zoom_start=15)
-    ...
+
+    best_place = None
+    best_score = -1
+    place_infos = []
 
     for place in places:
         loc = place['geometry']['location']
         name = place['name']
         place_id = place['place_id']
 
-        keywords, avg_score, review_count = get_or_compute(place, api_key, client)
+        keywords, (best_keyword, matched_text, score) = get_or_compute(place, api_key, client, preference)
 
-        keywords_html = "<ul style='padding-left:18px; margin:5px 0;'>" + "".join(
-            f"<li>{kw}</li>" for kw in keywords[:10]
-        ) + "</ul>"
+        place_infos.append((place, loc, name, keywords, best_keyword, matched_text, score))
+
+        if score > best_score:
+            best_score = score
+            best_place = place_id  # or store full data as best_place_info = (place, ...)
+
+    for (place, loc, name, keywords, best_keyword, matched_text, score) in place_infos:
+        is_best = (place['place_id'] == best_place)
 
         popup_html = f"""
         <b>{name}</b><br>
-        <b>Sentiment Score:</b> {avg_score}<br>
-        <b>Keywords:</b> {keywords_html}
+        <b>Best Match:</b> {matched_text} ({score:.2f})<br>
+        <b>Keywords:</b>
+        <ul style='padding-left:18px; margin:5px 0;'>
+            {''.join(f"<li>{kw}</li>" for kw in keywords[:10])}
+        </ul>
         """
 
         html = Html(popup_html, script=True)
-
         popup = Popup(html, max_width=300)
 
-
+        marker_color = "red" if is_best else "blue"
         folium.Marker(
             location=[loc['lat'], loc['lng']],
-            popup=popup
+            popup=popup,
+            icon=folium.Icon(color=marker_color)
         ).add_to(m)
+
+
+        # keywords_html = "<ul style='padding-left:18px; margin:5px 0;'>" + "".join(
+        #     f"<li>{kw}</li>" for kw in keywords[:10]
+        # ) + "</ul>"
+
+        # popup_html = f"""
+        # <b>{name}</b><br>
+        # <b>Sentiment Score:</b> {relation}<br>
+        # <b>Keywords:</b> {keywords_html}
+        # """
+
+        # html = Html(popup_html, script=True)
+
+        # popup = Popup(html, max_width=300)
+
+
+        # folium.Marker(
+        #     location=[loc['lat'], loc['lng']],
+        #     popup=popup
+        # ).add_to(m)
 
     os.makedirs("static", exist_ok=True)
     m.save("static/map_with_opening_dates.html")

@@ -7,8 +7,6 @@ class PlaceCache(db.Model):
     id            = db.Column(db.Integer,   primary_key=True)
     place_id      = db.Column(db.String,    unique=True, nullable=False)
     name          = db.Column(db.String,    nullable=False)
-    sentiment     = db.Column(db.Float,     nullable=False)
-    review_count  = db.Column(db.Integer,   nullable=False)
     keywords_json = db.Column(db.Text,      nullable=False)
     updated_at    = db.Column(db.DateTime, default=datetime.utcnow,
                                               onupdate=datetime.utcnow)
