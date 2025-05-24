@@ -11,6 +11,7 @@ from db import db
 from models import PlaceCache
 from utils import fetch_places, generate_map
 
+
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 google_api_key = os.getenv("GOOGLE_MAPS_API_KEY")
@@ -66,10 +67,12 @@ def create_app():
             lng     = request.form.get("lng", "121.564468")
             location = f"{lat},{lng}"
             keyword  = request.form["keyword"]
+            preference = request.form.getlist("preference")
+            print(preference)
 
             places = fetch_places(keyword, google_api_key, location)
             client = OpenAI(api_key=openai_api_key)
-            generate_map(places, google_api_key, keyword, location, client)
+            generate_map(places, google_api_key, preference, location, client)
             return render_template("index.html", keyword=keyword)
 
 
@@ -89,8 +92,6 @@ def create_app():
 
     return app
 
-# if __name__ == "__main__":
-#     create_app().run(debug=True)
 
 if __name__ == "__main__":
     import os
