@@ -9,6 +9,7 @@ import os
 from openai import OpenAI
 from branca.element import Figure
 from match_preference import match_preferences
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 # summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
@@ -102,6 +103,53 @@ def extract_keywords(reviews, client, model="gpt-3.5-turbo"):
     return keywords
 
 
+# def generate_map(places, api_key, preference, location, client):
+#     lat, lng = map(float, location.split(','))
+#     m = folium.Map(location=[lat, lng], zoom_start=15)
+
+#     best_place = None
+#     best_score = -1
+#     place_infos = []
+
+#     for place in places:
+#         loc = place['geometry']['location']
+#         name = place['name']
+#         place_id = place['place_id']
+
+#         keywords, (best_keyword, matched_text, score) = get_or_compute(place, api_key, client, preference)
+
+#         place_infos.append((place, loc, name, keywords, best_keyword, matched_text, score))
+
+#         if score > best_score:
+#             best_score = score
+#             best_place = place_id  # or store full data as best_place_info = (place, ...)
+
+#     for (place, loc, name, keywords, best_keyword, matched_text, score) in place_infos:
+#         is_best = (place['place_id'] == best_place)
+
+#         popup_html = f"""
+#         <b>{name}</b><br>
+#         <b>Best Match:</b> {matched_text} ({score:.2f})<br>
+#         <b>Keywords:</b>
+#         <ul style='padding-left:18px; margin:5px 0;'>
+#             {''.join(f"<li>{kw}</li>" for kw in keywords[:10])}
+#         </ul>
+#         """
+
+#         html = Html(popup_html, script=True)
+#         popup = Popup(html, max_width=300)
+
+#         marker_color = "red" if is_best else "blue"
+#         folium.Marker(
+#             location=[loc['lat'], loc['lng']],
+#             popup=popup,
+#             icon=folium.Icon(color=marker_color)
+#         ).add_to(m)
+
+
+#     os.makedirs("static", exist_ok=True)
+#     m.save("static/map_with_opening_dates.html")
+
 def generate_map(places, api_key, preference, location, client):
     lat, lng = map(float, location.split(','))
     m = folium.Map(location=[lat, lng], zoom_start=15)
@@ -110,19 +158,30 @@ def generate_map(places, api_key, preference, location, client):
     best_score = -1
     place_infos = []
 
-    for place in places:
+    def process_place(place):
         loc = place['geometry']['location']
         name = place['name']
         place_id = place['place_id']
+        try:
+            keywords, (best_keyword, matched_text, score) = get_or_compute(place, api_key, client, preference)
+            return (place, loc, name, keywords, best_keyword, matched_text, score)
+        except Exception as e:
+            print(f"Error processing {place_id}: {e}")
+            return None
 
-        keywords, (best_keyword, matched_text, score) = get_or_compute(place, api_key, client, preference)
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        futures = [executor.submit(process_place, place) for place in places]
 
-        place_infos.append((place, loc, name, keywords, best_keyword, matched_text, score))
+        for future in as_completed(futures):
+            result = future.result()
+            if result:
+                place, loc, name, keywords, best_keyword, matched_text, score = result
+                place_infos.append(result)
+                if score > best_score:
+                    best_score = score
+                    best_place = place['place_id']
 
-        if score > best_score:
-            best_score = score
-            best_place = place_id  # or store full data as best_place_info = (place, ...)
-
+    # Add markers to map
     for (place, loc, name, keywords, best_keyword, matched_text, score) in place_infos:
         is_best = (place['place_id'] == best_place)
 
@@ -130,41 +189,17 @@ def generate_map(places, api_key, preference, location, client):
         <b>{name}</b><br>
         <b>Best Match:</b> {matched_text} ({score:.2f})<br>
         <b>Keywords:</b>
-        <ul style='padding-left:18px; margin:5px 0;'>
-            {''.join(f"<li>{kw}</li>" for kw in keywords[:10])}
-        </ul>
+        <ul style='padding-left:18px; margin:5px 0;'>{''.join(f"<li>{kw}</li>" for kw in keywords[:10])}</ul>
         """
-
         html = Html(popup_html, script=True)
         popup = Popup(html, max_width=300)
-
         marker_color = "red" if is_best else "blue"
+
         folium.Marker(
             location=[loc['lat'], loc['lng']],
             popup=popup,
             icon=folium.Icon(color=marker_color)
         ).add_to(m)
-
-
-        # keywords_html = "<ul style='padding-left:18px; margin:5px 0;'>" + "".join(
-        #     f"<li>{kw}</li>" for kw in keywords[:10]
-        # ) + "</ul>"
-
-        # popup_html = f"""
-        # <b>{name}</b><br>
-        # <b>Sentiment Score:</b> {relation}<br>
-        # <b>Keywords:</b> {keywords_html}
-        # """
-
-        # html = Html(popup_html, script=True)
-
-        # popup = Popup(html, max_width=300)
-
-
-        # folium.Marker(
-        #     location=[loc['lat'], loc['lng']],
-        #     popup=popup
-        # ).add_to(m)
 
     os.makedirs("static", exist_ok=True)
     m.save("static/map_with_opening_dates.html")
