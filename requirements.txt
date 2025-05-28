@@ -1,13 +1,13 @@
 Flask
 requests
 folium
-torch
-transformers
+# torch
+# transformers
 geopandas
 shapely
 openai
 gunicorn
 dotenv
 flask_sqlalchemy
-sentence-transformers
+# sentence-transformers
 

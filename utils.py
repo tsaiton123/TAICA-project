@@ -3,15 +3,15 @@ import folium
 from folium.features import CustomIcon
 from folium import Html, Popup
 from datetime import datetime
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline, AutoModelForSeq2SeqLM
-import torch
+# from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipeline, AutoModelForSeq2SeqLM
+# import torch
 import os
 from openai import OpenAI
 from branca.element import Figure
 from match_preference import match_preferences
 
 
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+# summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
 import json
 from db import db
