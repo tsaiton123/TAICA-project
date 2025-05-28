@@ -12,12 +12,15 @@ from models import PlaceCache
 from utils import fetch_places, generate_map
 
 
-load_dotenv()
-openai_api_key = os.getenv("OPENAI_API_KEY")
-google_api_key = os.getenv("GOOGLE_MAPS_API_KEY")
-database_url    = os.getenv("DATABASE_URL", "sqlite:///cache.db")
+
 
 def create_app():
+    # Load environment variables
+    load_dotenv()
+    openai_api_key = os.getenv("OPENAI_API_KEY")
+    google_api_key = os.getenv("GOOGLE_MAPS_API_KEY")
+    database_url    = os.getenv("DATABASE_URL", "sqlite:///cache.db")
+    
     app = Flask(__name__)
     # --- Database config & init ---
     if database_url.startswith("postgres://"):
