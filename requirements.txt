@@ -10,4 +10,5 @@ gunicorn
 dotenv
 flask_sqlalchemy
 # sentence-transformers
+psycopg2-binary
 
