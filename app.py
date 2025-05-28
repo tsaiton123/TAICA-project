@@ -20,7 +20,7 @@ def create_app():
     openai_api_key = os.getenv("OPENAI_API_KEY")
     google_api_key = os.getenv("GOOGLE_MAPS_API_KEY")
     database_url    = os.getenv("DATABASE_URL", "sqlite:///cache.db")
-    
+
     app = Flask(__name__)
     # --- Database config & init ---
     if database_url.startswith("postgres://"):
@@ -77,7 +77,7 @@ def create_app():
 
             places = fetch_places(keyword, google_api_key, location)
             client = OpenAI(api_key=openai_api_key)
-            generate_map(places, google_api_key, preference, location, client)
+            generate_map(places, google_api_key, preference, location, client, app)
             return render_template("index.html", keyword=keyword)
 
 

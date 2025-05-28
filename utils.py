@@ -150,7 +150,7 @@ def extract_keywords(reviews, client, model="gpt-3.5-turbo"):
 #     os.makedirs("static", exist_ok=True)
 #     m.save("static/map_with_opening_dates.html")
 
-def generate_map(places, api_key, preference, location, client):
+def generate_map(places, api_key, preference, location, client, app):
     lat, lng = map(float, location.split(','))
     m = folium.Map(location=[lat, lng], zoom_start=15)
 
