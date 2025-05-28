@@ -159,15 +159,16 @@ def generate_map(places, api_key, preference, location, client, app):
     place_infos = []
 
     def process_place(place):
-        loc = place['geometry']['location']
-        name = place['name']
-        place_id = place['place_id']
-        try:
-            keywords, (best_keyword, matched_text, score) = get_or_compute(place, api_key, client, preference)
-            return (place, loc, name, keywords, best_keyword, matched_text, score)
-        except Exception as e:
-            print(f"Error processing {place_id}: {e}")
-            return None
+        with app.app_context():  # <-- ensure application context
+            loc = place['geometry']['location']
+            name = place['name']
+            place_id = place['place_id']
+            try:
+                keywords, (best_keyword, matched_text, score) = get_or_compute(place, api_key, client, preference)
+                return (place, loc, name, keywords, best_keyword, matched_text, score)
+            except Exception as e:
+                print(f"Error processing {place_id}: {e}")
+                return None
 
     with ThreadPoolExecutor(max_workers=10) as executor:
         futures = [executor.submit(process_place, place) for place in places]
